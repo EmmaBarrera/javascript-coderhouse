@@ -9,7 +9,6 @@ const precioFunda = 1800;
 let productoElegido
 let cantidadElegida
 
-
 //* FUNCIONES:
 
 const totalCompra = () => {
@@ -50,40 +49,3 @@ while (productoElegido != 'wallet' && productoElegido != 'cargador' && productoE
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-//* FUNCION:
-
-/*
-const totalCompra = (productoElegido, cantidadElegida) => {
-
-    return (precioProducto * cantidadElegida);
-
-}
-*/
-
-//* LLAMADO A LA FUNCION:
-
-/*
-let carrito = totalCompra(productoElegido, cantidadElegida);
-
-for (let i = 0; i < array.length; i++) {
-    const element = array[i];
-    
-}
-*/
-
-
-
-//////////////////////////////////////////////////////////////////////////
-
-
