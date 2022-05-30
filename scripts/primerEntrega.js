@@ -37,7 +37,7 @@ const totalCompra = () => {
 };
 
 const mostrarEleccion = (productos) => {
-    console.log('El producto seleccionado es: ' + productos.marca + 'modelo ' + productos.modelo + 'por un total de $' + productos.precio);
+    console.log('El producto seleccionado es: ' + productos.marca + ' crcrmodelo ' + productos.modelo + ' por un total de $' + productos.precio);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
 //* DECLARACION DE VARIABLES:
@@ -46,55 +46,57 @@ let productoElegido;
 //////////////////////////////////////////////////////////////////////////////////////////////
 //* EVENTOS:
 
-while (productoElegido != 'nano s' && productoElegido != 'nano s plus' && productoElegido != 'nano x' && productoElegido != 'otg kit' && productoElegido != 'cryptosteel' && productoElegido != 'el billfodl') {
-    
-        let agregarProducto = () => {
-    
-        let productoElegido = prompt('¿Qué producto desea comprar?: Nano S, Nano S Plus, Nano X, OTG Kit, Cryptosteel o El Billfodl').toLowerCase();
+let agregarProducto = () => {
 
-        switch (productoElegido) {
-            case 'nano s':
-                mostrarEleccion(producto1);
-                carrito.push(producto1);
-                break;
-            
-            case 'nano s plus':
-                mostrarEleccion(producto2);
-                carrito.push(producto2);
-                break;
-            
-            case 'nano x':
-                mostrarEleccion(producto3);
-                carrito.push(producto3);
-                break;
-            
-            case 'otg kit':
-                mostrarEleccion(producto4);
-                carrito.push(producto4);
-                break;
-            
-            case 'cryptosteel':
-                mostrarEleccion(producto5);
-                carrito.push(producto5);
-                break;
-            
-            case 'el billfodl':
-                mostrarEleccion(producto6);
-                carrito.push(producto6);
-                break;
-            
-            default:
-                alert('El producto no existe. Por favor, ingrese: Nano S, Nano S Plus, Nano X, OTG Kit, Cryptosteel o El Billfodl');
-                break;
-        }
+    let productoElegido = prompt('¿Qué producto desea comprar?: Nano S, Nano S Plus, Nano X, OTG Kit, Cryptosteel o El Billfodl').toLowerCase();
 
-        let confirmacionCarrito = confirm('¿Desea agregar otro producto al carrito?');
-        if (confirmacionCarrito) {
-            agregarProducto();
-        } else {
-            console.log('El total de la compra es: $' + totalCompra());
-            console.log(carrito);
-        }
+    switch (productoElegido) {
+        case 'nano s':
+            mostrarEleccion(producto1);
+            carrito.push(producto1);
+            break;
+        
+        case 'nano s plus':
+            mostrarEleccion(producto2);
+            carrito.push(producto2);
+            break;
+        
+        case 'nano x':
+            mostrarEleccion(producto3);
+            carrito.push(producto3);
+            break;
+        
+        case 'otg kit':
+            mostrarEleccion(producto4);
+            carrito.push(producto4);
+            break;
+        
+        case 'cryptosteel':
+            mostrarEleccion(producto5);
+            carrito.push(producto5);
+            break;
+        
+        case 'el billfodl':
+            mostrarEleccion(producto6);
+            carrito.push(producto6);
+            break;
+        
+        default:
+            alert('El producto no existe. Por favor, ingrese: Nano S, Nano S Plus, Nano X, OTG Kit, Cryptosteel o El Billfodl');
+            break;
+    }
+
+    let confirmacionCarrito = confirm('¿Desea agregar otro producto al carrito?');
+    if (confirmacionCarrito) {
+        agregarProducto();
+    } else {
+        console.log('El total de la compra es: $' + totalCompra());
+        console.log(carrito);
     }
 }
+
 //////////////////////////////////////////////////////////////////////////////////////////////
+
+//* EJECUCION DE FUNCIONES:
+
+agregarProducto();
