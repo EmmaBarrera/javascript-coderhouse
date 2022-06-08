@@ -1,89 +1,50 @@
 //! SIMULADOR DE CARRITO
 
-//? 1- Creo una clase 'Producto' con funcion constructora que tenga como atributos el nombre, marca y precio para luego crear los objetos de tipo Producto.
+class Products {
+    constructor(name, price, description, img, id) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.img = img;
+        this.id = id;
+    };
+};
 
-class Productos {
-    constructor(nombre, marca, precio) {
-        this.nombre = nombre;
-        this.marca = marca;
-        this.precio = precio;
-    }
-}
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const product1 = new Products('NANO X', '$17.080,00', 'Protege, compra, cambia, haz crecer tus cripto y gestiona tus NFTs con nuestra nueva billetera de hardware con Bluetooth. Todos tus activos digitales protegidos en un mismo lugar.', 'https://cdn.shopify.com/s/files/1/2974/4858/products/01_4f10d168-302a-47b3-b79f-e0a6b6da7a48.png?v=1644216184', 040041);
 
-//? 2- Crear los objetos de tipo Producto.
+const product2 = new Products('NANO S PLUS', '$9.569,00', 'Protege tus activos y explora la Web3 con el nuevo Ledger Nano S Plus. Tomar el emblemático Ledger Nano S y transformarlo en amigable para las DeFi y los NFTs. Eso es lo que hicimos con el nuevo Nano S Plus.', 'https://cdn.shopify.com/s/files/1/2974/4858/products/01_6.png?v=1647271638', 040042);
 
-const producto1 = new Productos('Wallet', 'Ledger', 300);
-const producto2 = new Productos('Cargador', 'Vulkan', 25);
-const producto3 = new Productos('Funda', 'Nova', 30);
+const product3 = new Products('NANO S', '$6.595,00', 'Protege, compra y haz crecer tus activos cripto con la billetera de hardware más famosa del mundo.', 'https://cdn.shopify.com/s/files/1/2974/4858/products/black-lns_95b4bf48-c245-4dc5-8db7-7b437ce5bdc5.png?v=1644216128', 040043);
 
-//? 3- Creo un array vacio para guardar las selecciones del usuario (Carrito de compras). Deberemos hacerle un push a este array cada vez que el usuario seleccione un producto. Esto sera en el switch que se ejecuta mas abajo.
+const products = [product1, product2, product3];
 
-const carrito = [];
+const cart = [];
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const cardContainer = document.querySelector('#card__container');
 
-//? 4- Crear una función que reciba como parámetro un objeto de tipo Producto y que muestre por consola los datos del producto.
-//? 5- Crear otra funcion que nos muestre el total de productos que hay en el carrito. Para eso debemos crearle una variable sumaTotal que el sume el total de todos los productos que hay en el carrito y por cada producto del carrito, lo recorra y sume el precio a la variable sumaTotal. La funcion debe retornar la variable sumaTotal.
-
-const mostrarMensaje = (producto) => {
-    console.log('Su seleccion fue el producto ' + producto.nombre + ' de marca ' + producto.marca + ' con un precio de ' + producto.precio);
-
-}
-
-const totalCarrito = () => {
-    let sumaTotal = 0;
-    carrito.forEach((producto) => {
-        sumaTotal += producto.precio
+products.forEach(product => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerText = `
+            <h3 class="card__title">Wallet ${product.name}</h3>
+            <p class="card__price">${product.price}</p>
+            <p class="card__description">${product.description}</p>
+            <img class="card__img" src="${product.img}">
+            <button class="card__btn" data-id="${product.id}">Agregar al carrito</button>
+    `;
+    cardContainer.append(card);
 });
-    return sumaTotal;
-}
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const addProductToCart = (e) => {
+    const productSelect = e.target.getAttribute('data-id');
+    const product = products.find((product) => product.id === productSelect);
+    cart.push(product);
+    console.log(cart);
+};
 
-//? 6- Crear una función que primero reciba un prompt para que el usuario ingrese el nombre del producto. Luego un switch que dependiendo del nombre ingresado, muestre por consola el producto seleccionado utilizando la funcion mostrarMensaje. Y por ultimo le pregunta al usuario si desea seguir comprando o no. Si desea seguir comprando se vuelve a llamar a la funcion agregarProducto dentro de su misma funcion. Si no desea seguir comprando se muestra un mensaje por consola.
+const buyBtns = document.querySelectorAll('.card__btn');
 
-const agregarProducto = () => {
-    // a. Crear una variable con un prompt que pida al usuario que ingrese un producto.
-    const productoElegido = prompt('¿Qué producto deseas comprar? Wallet, Cargador o Funda').toLowerCase();
-
-    // b. Crear un switch que reciba como parámetro el nombre del producto y que ejecute la función mostrarMensaje con el objeto correspondiente.
-    switch (productoElegido) {
-        case 'wallet':
-            mostrarMensaje(producto1);
-            carrito.push(producto1);
-            break;
-
-        case 'cargador':
-            mostrarMensaje(producto2);
-            carrito.push(producto2);
-            break;
-
-        case 'funda':
-            mostrarMensaje(producto3);
-            carrito.push(producto3);
-            break;
-
-        default:
-            console.log('Producto no encontrado');
-            break;
-    }
-
-    // c. Crear un if que reciba un true o un false a traves de un confirm y que muestre por consola un mensaje para agregar o no un nuevo producto al carrito. Tambien que nos muestre el total de productos que hay en el carrito al finalizar la compra.
-    if(confirm('¿Desea agregar otro producto?')) {
-        agregarProducto();
-    } else {
-        console.log('Gracias por su compra, el total a pagar es $' + totalCarrito());
-        console.log(carrito);
-    }
-
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//? 7- Llamar a la funcion agregarProducto.
-
-agregarProducto();
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+buyBtns.forEach(btn => {
+    btn.addEventListener('click', addProductToCart);
+});
 
