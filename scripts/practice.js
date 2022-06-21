@@ -1147,6 +1147,7 @@ botonesCompra.forEach((botonCompra) => {
 //! CREANDO UN EJERCICIO DE CARRITO DESDE CERO:
 
 //* 1. CREAMOS UNA CLASE CONSTRUCTORA PARA LOS PRODUCTOS:
+/*
 class Monitor {
     constructor(id, marca, modelo, pulgadas, tipo, precio) {
         this.id = id;
@@ -1165,6 +1166,7 @@ const monitor2 = new Monitor(002, 'DELL', 'XPS', 17.3, 'LED', 2500);
 const monitor3 = new Monitor(003, 'ACER', 'ASPIRE', 15.6, 'LCD', 1000);
 
 //* 3. CREAMOS UN ARRAY DE PRODUCTOS PARA LUEGO RECORRERLO CUANDO EJECUTE EL CODIGO CON EL FOR EACH Y NOS CREE CADA CARD:
+
 const productos = [monitor1, monitor2, monitor3];
 
 
@@ -1219,3 +1221,123 @@ buyBtn.forEach((btn) => {
     // B. AGREGAMOS EL EVENTO CLICK A CADA UNO DE SUS BOTONES:
     btn.addEventListener('click', agregarProducto);
 });
+*/
+
+//! LOCAL STORAGE Y SESSION STORAGE:
+
+//?LOCAL STORAGE:
+
+//*PARA GUARDAR DATOS UTILIZAMOS EL METODO .SETITEM()
+
+// localStorage.setItem('key', 'value');
+//localStorage.setItem('isDarkMode', 'true');
+
+//* PARA OBTENER DATOS UTILIZAMOS EL METODO .GETITEM()
+
+//const isDarkMode = localStorage.getItem('isDarkMode');
+//console.log(isDarkMode);
+
+//* DE ESTA FORMA PODEMOS ACCEDER A ESE DATO QUE QUEDO GUARDADO PARA HACER ALGO EN EL SITIO:
+
+// if(isDarkMode) {
+//     document.body.classList.add('dark');
+// };
+
+
+//? SESSION STORAGE:
+
+//* LO UNICO QUE CAMBIA ES QUE ACCEDEMOS AL OBJETO SESSIONSTORAGE Y NO AL LOCALSTORAGE:
+
+// sessionStorage.setItem('key', 'value');
+
+//* A DIFERENCIA DEL LOCALSTORAGE, EL SESSIONSTORAGE SE BORRA CUANDO SE CIERRA EL NAVEGADOR.
+// SERIA LA OPCION OPTIMA PARA EL EJEMPLO DEL DARKMODE.
+
+
+//? ELIMINAR DATOS DEL STORAGE CON EL METODO .REMOVEITEM():
+//* ESTE FUNCIONA TANTO PARA LOCAL COMO PARA SESSION. 
+
+//localStorage.removeItem('isDarkMode');
+
+// DE ESTA FORMA LO QUE HICIMOS FUE ELIMINAR EL DATO QUE GUARDAMOS EN EL LOCALSTORAGE. 
+//* LO QUE DEBEMOS HACER ANTES DE ELIMINAR EL DATO ES VERIFICAR SI EXISTE EL DATO EN EL STORAGE UTILIZANDO UN IF:
+
+// if(localStorage.getItem('isDarkMode')) {
+//     localStorage.removeItem('isDarkMode');
+// }
+
+//? ELIMINAR TODOS LOS DATOS DEL STORAGE CON EL METODO .CLEAR():
+
+//localStorage.clear();
+
+//* DE ESTA FORMA LO QUE HICIMOS FUE ELIMINAR TODOS LOS DATOS DEL LOCALSTORAGE.
+
+//* PRIMERO INTENTEMOS GUARDAR EN EL STORAGE UN ARRAY:
+
+//localStorage.setItem('Array', [1,2,3,4,5]);
+
+//* COMO PODREMOS OBSERVAR, EL ARRAY SE GUARDA CON LOS DATOS DEL MISMO SEPARADOS CON , Y EN STRING.
+//* AHORA SI HACEMOS LO MISMO PERO QUEREMOS GUARDAR UN OBJETO VEMOS QUE NOS APARECE COMO [OBJETC, OBJETCT].
+//* ESTA ES LA FORMA EN QUE JS PASA LOS DATOS DE UN OBJETO A UN STRING. GUARDEMOS LO QUE GUARDEMOS, JS NOS GUARDARA [OBJETC, OBJETCT].
+
+
+// const monitor = {
+//     marca: 'LG',
+//     pulgadas: 24,
+//     precio: 3000
+// }
+
+// localStorage.setItem('Objeto', monitor);
+
+// console.log(localStorage.getItem('Objeto'));
+
+//* PARA PODER HACERLO DE UNA MEJOR MANERA, APARECE JSON.
+
+//! JSON:
+
+//* TENDREMOS QUE PASAR NUESTRO OBJETO A ALGO QUE NUESTRO STORAGE ENTIENDA, Y ESE ALGO, JS NO LO TOMARA COMO OBJETO, CUANDO VUELVA,LO VOLVEMOS A CONVERTIR PARA QUE JS LO ENTIENDA. LO CONVERTIREMOS A JSON.
+//* JSON ES UN FORMATO BASADO EN TEXTO PLANO LOS CUALES REPRESENTAN DATOS CON LA SINTAXIS DE OBJETOS DE JS.
+//* PARA ESTO SE USARA POCO, EN PROXIMAS CLASES LO UTILIZAREMOS PARA POR EJEMPLO, COMUNICAR EL FRONTEND CON EL BACK. 
+//* ESTE SE USA INDEPENDIENTEMENTE DE JS. PUEDE USARSE POR EJEMPLO CON PYTHON.
+
+//? CONVERSIONES DE/HACIA JSON:
+
+    //* PARA CONVERTIR UN OBJETO A JSON CON JSON.STRINGIFY:
+    
+    // const monitor = {
+    //     marca: 'LG',
+    //     pulgadas: 24,
+    //     precio: 3000
+    // }
+
+    // console.log(monitor);
+
+    // const monitorJSON = JSON.stringify(monitor);
+
+    // console.log(monitorJSON);
+    // VEREMOS QUE EL JSON ES UN STRING, NO NOS DEJA ABRIR EL OBJETO COMO EN EL PRIMER LOG DONDE ES UN OBJETO VISTO DESDE JS.
+
+//? CONVERSIONES DE/HACIA OBJETO:
+    //* PARA CONVERTIR UN JSON A OBJETO CON JSON.PARSE:
+
+    // const objetoGuardadoEnLocal = JSON.parse(localStorage.getItem('Objeto'));
+
+    //* Y YA PODEMOS ACCEDER AL OBJETO NUEVAMENTE Y TAMBIEN A SUS PROPIEDADES:
+
+    // console.log(objetoGuardadoEnLocal.precio);
+
+
+////////////////////////////////////////////////////////////////////////////////
+//! SUGAR SINTAX
+
+//? OPERADOR TERNARIO:
+
+// condicion ? caso1 : caso2;
+
+// const edad = prompt('ingrese su edad');
+
+// if(edad >=18){
+//     console.log('eres mayor de edad');
+// } else {
+//     console.log('eres menor de edad');
+// }

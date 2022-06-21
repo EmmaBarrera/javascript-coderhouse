@@ -26,13 +26,13 @@ let products = [product1, product2, product3];
 
 let cart = [];
 
-//* 5. CON .QUERYSELECTOR ACCEDO AL GRUPO DE LOS PRODUCTOS:
+//* 5. CON .QUERYSELECTOR ACCEDO AL GRUPO DE LOS PRODUCTOS Y LO ASIGNO COMO VALOR A LA VARIABLE PRODUCTSCONTAINER:
 
 const productsContainer = document.querySelector('.card-group');
 
-//* 6. CON EL METODO DE ARRAY .FOREACH, RECORREMOS EL ARRAY DE PRODUCTOS Y CREAMOS UNA CARD POR CADA UNO DE ELLOS:
+//* 6. CON EL METODO DE ARRAY .FOREACH, RECORRO EL ARRAY DE PRODUCTOS Y CREO UNA CARD POR CADA UNO DE ELLOS:
 
-products.forEach(product => {
+products.forEach((product) => {
     // 6.1 CREO CONTENEDOR DIV DONDE SE AGREGARAN TODAS LAS CARDS:
     const card = document.createElement('div');
     // 6.2 lES AGREGO LA CLASE NECESARIA:
@@ -51,10 +51,37 @@ products.forEach(product => {
     productsContainer.append(card);
 });
 
-//* 7. CON LAS CARDS YA CREADAS, ACCEDO A LOS BOTONES DE "AGREGAR AL CARRITO" Y ESTO ME DEVOLVERA UN ARRAY CON TODOS LOS BOTONES CON LA CLASE "BTN" QUE SE HAYAN CREADO CON LA FUNCION.
+//* 7. CON LAS CARDS YA CREADAS, ACCEDO A LOS BOTONES DE "AGREGAR AL CARRITO" Y ESTO ME DEVOLVERA UN ARRAY CON TODOS LOS BOTONES CON LA CLASE "BUTTON" QUE SE HAYAN CREADO CON LA FUNCION:
 
 const buyBtns = document.querySelectorAll('.button');
-console.log(buyBtns);
+
+//* 8. CREO UNA FUNCION "IMPRIMIR CARRITO" PARA UTILIZAR EN LA SIGUIENTE FUNCION COMO EVENTO DE CLICK "AGREGAR PRODUCTO AL CARRITO":
+
+// 8.1 SELECCIONO EL CONTENEDOR DEL CARRITO Y LO ASIGNO COMO VALOR A LA VARIABLE CARTCONTAINER: 
+const cartContainer = document.querySelector('.cart-container');
+
+const printCart = () => {
+    // A. PRIMERO INYECTO CODIGO HTML VACIO:
+    cartContainer.innerHTML = '';
+    // B. CON EL METODO .FOREACH() RECORRO EL ARRAY DE PRODUCTOS DEL CARRITO E IMPRIMO UN HTML DE CADA UNO DE ELLOS:
+    cart.forEach((product) => {
+        // B.1 CREO UNA CONSTANTE Y LE ASIGNO COMO VALOR LA CREACION DE UN CONTENEDOR DIV QUE SERA EL CONTENEDOR DE LOS PRODUCTOS DEL CARRITO:
+        const cartView = document.createElement('div');
+        // B.2 LE ASIGNO LA CLASE NECESARIA:
+        cartView.className = "card";
+        // B.3 LE ASIGNO EL HTML DE CADA PRODUCTO DEL CARRITO:
+        cartView.innerHTML = `
+            <img src=${product.img} class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">${product.name}</h5>
+                <p class="card-text">${product.price} ARS</p>
+                <button class="button btn-danger delete-btn" data-id="${product.id}">ELIMINAR DEL CARRITO</button>
+            </div>
+        `;
+        // B.4 LE AÑADO EL CONTENEDOR DE LOS PRODUCTOS DEL CARRITO AL CONTENEDOR DEL CARRITO GENERAL:
+        cartContainer.append(cartView);
+    });
+}
 
 //* 8.1 CREO UNA FUNCION "AGREGAR PRODUCTO AL CARRITO" PARA UTILIZAR LUEGO COMO EVENTO DE CLICK AL BOTON:
 
@@ -65,8 +92,10 @@ const addProductToCart = (e) => {
     const product = products.find(product => product.id === selectProduct);
     // C. REALIZO UN .PUSH() DEL PRODUCTO ELEGIDO AL CARRITO:
     cart.push(product);
-    // E. IMPRIMIMOS EN CONSOLA EL ARRAY DE PRODUCTOS DEL CARRITO:
-    console.log(cart);
+    // E. IMPRIMIMOS EL CARRITO EN LA PANTALLA:
+    printCart();
+    // F. IMPRIMIMOS EL CARRITO EN EL LOCALSTORAGE:
+    localStorage.setItem('cart', JSON.stringify(cart));
 };
 
 //* 8.2 HABIENDO CREADO EL ARRAY DE BOTONES Y LA FUNCION DE AGREGAR PRODUCTOS AL CARRITO, AHORA RECORRO EL ARRAY DE PRODUCTOS CON UN .FOREACH Y LE AGREGO UN .ADDEVENTLISTENER() A CADA UNO DE LOS BOTONES, DE ESA MANERA LO PODRA ESCUCHAR CUANDO SE CLICKEE Y EJECUTARA LA FUNCION YA DECLARADA:
@@ -74,3 +103,46 @@ const addProductToCart = (e) => {
 buyBtns.forEach((buyButton) => {
     buyButton.addEventListener('click', addProductToCart);
 });
+
+
+//* 9. VERIFICO SI EL LOCALSTORAGE TIENE ALGO Y SI ES ASI, LO CARGO EN EL ARRAY DE PRODUCTOS DEL CARRITO:
+
+if (localStorage.getItem('cart')) {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    printCart();
+}
+
+
+
+
+
+
+//! REVISAR EL SIGUIENTE BLOQUE DE CODIGO PARA ELIMINAR PRODUCTO DEL CARRITO. NO FUNCIONA:
+
+//* 10. CREO UNA FUNCION PARA ELIMINAR UN PRODUCTO DEL CARRITO:
+
+// 10.1 ACCEDO A LOS BOTONES DE "ELIMINAR PRODUCTO" Y ESTO ME DEVOLVERA UN ARRAY CON TODOS LOS BOTONES CON LA CLASE "DELETE-BTN" QUE SE HAYAN CREADO CON LA FUNCION PRINTCART.
+
+const deleteProductBtns = document.querySelectorAll('.delete-btn');
+
+// 10.2 CREO UNA FUNCION "ELIMINAR PRODUCTO DEL CARRITO" PARA UTILIZAR LUEGO COMO EVENTO DE CLICK AL BOTON:
+
+const deleteProductFromCart = (e) => {
+    // A. ACCEDO AL ATRIBUTO "DATA-ID" DEL BOTON QUE SE HA CLICKEADO Y LO GUARDO EN UNA VARIABLE:
+    const selectProductToDelete = e.target.getAttribute('data-id');
+    // B. CON EL METODO .FIND() BUSCO ESE ATRIBUTO DEL PRODUCTO ELEGIDO EN EL ARRAY DEL CARRITO Y CUANDO ENCUENTRE EL VALOR DE "DATA-ID" DEL PRODUCTO ELEGIDO, LO GUARDO EN UNA VARIABLE:
+    const productToDelete = cart.find(product => product.id === selectProductToDelete);
+    // C. CON EL METODO .FILTER() RECORRO EL ARRAY DEL CARRITO Y ME QUEDO CON LOS PRODUCTOS QUE NO COINCIDAN CON EL PRODUCTO ELEGIDO:
+    cart = cart.filter(product => product.id !== productToDelete);
+    // D. IMPRIMO EL CARRITO EN LA PANTALLA:
+    printCart();
+    // E. IMPRIMO EL CARRITO EN EL LOCALSTORAGE:
+    localStorage.setItem('cart', JSON.stringify(cart));
+};
+
+// 10.3 RECORRO EL ARRAY DE BOTONES CON UN .FOREACH Y LE AGREGO UN .ADDEVENTLISTENER() A CADA UNO DE LOS BOTONES, DE ESA MANERA LO PODRA ESCUCHAR CUANDO SE CLICKEE Y EJECUTARA LA FUNCION YA DECLARADA:
+
+deleteProductBtns.forEach((deleteButton) => {
+    deleteButton.addEventListener('click', deleteProductFromCart);
+});
+
