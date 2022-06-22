@@ -57,6 +57,27 @@ const buyBtns = document.querySelectorAll('.button');
 
 //* 8. CREO UNA FUNCION "IMPRIMIR CARRITO" PARA UTILIZAR EN LA SIGUIENTE FUNCION COMO EVENTO DE CLICK "AGREGAR PRODUCTO AL CARRITO":
 
+//* 8. CREO UNA FUNCION PARA ELIMINAR UN PRODUCTO DEL CARRITO:
+
+const deleteProductFromCart = () => {
+    // A. ACCEDO A LOS BOTONES DE "ELIMINAR PRODUCTO" Y ESTO ME DEVOLVERA UN ARRAY CON TODOS LOS BOTONES CON LA CLASE "DELETE-BTN" QUE SE HAYAN CREADO CON LA FUNCION PRINTCART.
+    const deleteProductBtns = document.querySelectorAll('.delete-btn');
+    // B. RECORRO EL ARRAY DE BOTONES CON UN .FOREACH Y LE AÑADO UN .ADDEVENTLISTENER() A CADA UNO DE LOS BOTONES:
+    deleteProductBtns.forEach((button) => {
+        button.addEventListener('click', (e) => {
+            // b.1 ACCEDO AL ATRIBUTO "DATA-ID" DEL BOTON QUE SE HA CLICKEADO Y LO GUARDO EN UNA VARIABLE:
+            const productToDelete = e.target.getAttribute('data-id');
+            // b.2 CON EL METODO .FILTER() RECORRO EL ARRAY DE PRODUCTOS DEL CARRITO Y MUESTRO SOLO LOS QUE NO COINCIDAN CON EL MISMO (ES DECIR, SE ELIMINA):
+            cart = cart.filter((e) => e.id != productToDelete);
+            // b.3 AL RECONOCER EL PRODUCTO AL QUE EL USARIO HIZO CLICK, CON EL METODO .PARENTELEMENT() APLICADO DOS VECES, LLEGO A ELIMINAR TODO EL DIV CONTENEDOR DEL PRODUCTO.
+            e.target.parentElement.parentElement.remove();
+            // b.5 CON EL METODO .SETITEM() GUARDO EL ARRAY DE PRODUCTOS DEL CARRITO NUEVO EN EL LOCALSTORAGE:
+            localStorage.setItem('cart', JSON.stringify(cart));
+        });
+    });
+};
+
+
 // 8.1 SELECCIONO EL CONTENEDOR DEL CARRITO Y LO ASIGNO COMO VALOR A LA VARIABLE CARTCONTAINER: 
 const cartContainer = document.querySelector('.cart-container');
 
@@ -78,10 +99,13 @@ const printCart = () => {
                 <button class="button btn-danger delete-btn" data-id="${product.id}">ELIMINAR DEL CARRITO</button>
             </div>
         `;
-        // B.4 LE AÑADO EL CONTENEDOR DE LOS PRODUCTOS DEL CARRITO AL CONTENEDOR DEL CARRITO GENERAL:
+        // B.4 LE AÑADO EL CONTENEDOR DE EL/LOS PRODUCTOS DEL CARRITO AL CONTENEDOR DEL CARRITO GENERAL:
         cartContainer.append(cartView);
+        // B.5 EJECUTO LA FUNCION DE ELIMINAR PRODUCTO DEL CARRITO:
+        deleteProductFromCart();
     });
 }
+
 
 //* 8.1 CREO UNA FUNCION "AGREGAR PRODUCTO AL CARRITO" PARA UTILIZAR LUEGO COMO EVENTO DE CLICK AL BOTON:
 
@@ -110,39 +134,4 @@ buyBtns.forEach((buyButton) => {
 if (localStorage.getItem('cart')) {
     cart = JSON.parse(localStorage.getItem('cart'));
     printCart();
-}
-
-
-
-
-
-
-//! REVISAR EL SIGUIENTE BLOQUE DE CODIGO PARA ELIMINAR PRODUCTO DEL CARRITO. NO FUNCIONA:
-
-//* 10. CREO UNA FUNCION PARA ELIMINAR UN PRODUCTO DEL CARRITO:
-
-// 10.1 ACCEDO A LOS BOTONES DE "ELIMINAR PRODUCTO" Y ESTO ME DEVOLVERA UN ARRAY CON TODOS LOS BOTONES CON LA CLASE "DELETE-BTN" QUE SE HAYAN CREADO CON LA FUNCION PRINTCART.
-
-const deleteProductBtns = document.querySelectorAll('.delete-btn');
-
-// 10.2 CREO UNA FUNCION "ELIMINAR PRODUCTO DEL CARRITO" PARA UTILIZAR LUEGO COMO EVENTO DE CLICK AL BOTON:
-
-const deleteProductFromCart = (e) => {
-    // A. ACCEDO AL ATRIBUTO "DATA-ID" DEL BOTON QUE SE HA CLICKEADO Y LO GUARDO EN UNA VARIABLE:
-    const selectProductToDelete = e.target.getAttribute('data-id');
-    // B. CON EL METODO .FIND() BUSCO ESE ATRIBUTO DEL PRODUCTO ELEGIDO EN EL ARRAY DEL CARRITO Y CUANDO ENCUENTRE EL VALOR DE "DATA-ID" DEL PRODUCTO ELEGIDO, LO GUARDO EN UNA VARIABLE:
-    const productToDelete = cart.find(product => product.id === selectProductToDelete);
-    // C. CON EL METODO .FILTER() RECORRO EL ARRAY DEL CARRITO Y ME QUEDO CON LOS PRODUCTOS QUE NO COINCIDAN CON EL PRODUCTO ELEGIDO:
-    cart = cart.filter(product => product.id !== productToDelete);
-    // D. IMPRIMO EL CARRITO EN LA PANTALLA:
-    printCart();
-    // E. IMPRIMO EL CARRITO EN EL LOCALSTORAGE:
-    localStorage.setItem('cart', JSON.stringify(cart));
 };
-
-// 10.3 RECORRO EL ARRAY DE BOTONES CON UN .FOREACH Y LE AGREGO UN .ADDEVENTLISTENER() A CADA UNO DE LOS BOTONES, DE ESA MANERA LO PODRA ESCUCHAR CUANDO SE CLICKEE Y EJECUTARA LA FUNCION YA DECLARADA:
-
-deleteProductBtns.forEach((deleteButton) => {
-    deleteButton.addEventListener('click', deleteProductFromCart);
-});
-
