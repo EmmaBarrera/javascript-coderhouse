@@ -10,6 +10,7 @@ class Wallets {
     }
 };
 
+
 //* 2. CREO LOS PRODUCTOS:
 
 const product1 = new Wallets('NANO X', '$17.080,00', 'Protege, compra, cambia, haz crecer tus cripto y gestiona tus NFTs con nuestra nueva billetera de hardware con Bluetooth. Todos tus activos digitales protegidos en un mismo lugar.', 'https://cdn.shopify.com/s/files/1/2974/4858/products/01_4f10d168-302a-47b3-b79f-e0a6b6da7a48.png?v=1644216184', '040041');
@@ -18,19 +19,22 @@ const product2 = new Wallets('NANO S PLUS', '$9.569,00', 'Protege tus activos y 
 
 const product3 = new Wallets('NANO S', '$6.595,00', 'Protege, compra y haz crecer tus activos cripto con la billetera de hardware más famosa del mundo.', 'https://cdn.shopify.com/s/files/1/2974/4858/products/black-lns_95b4bf48-c245-4dc5-8db7-7b437ce5bdc5.png?v=1644216128', '040043');
 
+
 //* 3. CREO UN ARRAY CON LOS PRODUCTOS:
 
 let products = [product1, product2, product3];
 
-//* 4. CREO EL CARRITO VACIO AL QUE PUSHEAR DESPUES LOS PRODUCTOS:
+
+//* 4. CREO EL CARRITO VACIO:
 
 let cart = [];
 
-//* 5. CON .QUERYSELECTOR ACCEDO AL GRUPO DE LOS PRODUCTOS Y LO ASIGNO COMO VALOR A LA VARIABLE PRODUCTSCONTAINER:
+//* 5. ACCEDO AL GRUPO DE LOS PRODUCTOS EN MI HTML Y LO ASIGNO COMO VALOR A LA VARIABLE PRODUCTSCONTAINER:
 
 const productsContainer = document.querySelector('.card-group');
 
-//* 6. CON EL METODO DE ARRAY .FOREACH, RECORRO EL ARRAY DE PRODUCTOS Y CREO UNA CARD POR CADA UNO DE ELLOS:
+
+//* 6. RECORRO EL ARRAY DE PRODUCTOS Y CREO UNA CARD POR CADA UNO DE ELLOS:
 
 products.forEach((product) => {
     // 6.1 CREO CONTENEDOR DIV DONDE SE AGREGARAN TODAS LAS CARDS:
@@ -39,7 +43,7 @@ products.forEach((product) => {
     card.className = "card";
     // 6.3 CON INNER.HMTL INYECTO EL HTML DE LA CARD:
     card.innerHTML = `
-        <img src=${product.img} class="card-img-top" alt="...">
+        <img src=${product.img} class="card-img-top rounded mx-auto d-block" alt="...">
         <div class="card-body">
             <h5 class="card-title">${product.name}</h5>
             <p class="card-text">${product.description}</p>
@@ -51,11 +55,11 @@ products.forEach((product) => {
     productsContainer.append(card);
 });
 
-//* 7. CON LAS CARDS YA CREADAS, ACCEDO A LOS BOTONES DE "AGREGAR AL CARRITO" Y ESTO ME DEVOLVERA UN ARRAY CON TODOS LOS BOTONES CON LA CLASE "BUTTON" QUE SE HAYAN CREADO CON LA FUNCION:
+
+//* 7. ACCEDO A LOS BOTONES DE "AGREGAR AL CARRITO" Y ESTO ME DEVOLVERA UN ARRAY CON TODOS LOS BOTONES CON LA CLASE "BUTTON" QUE SE HAYAN CREADO CON LA FUNCION:
 
 const buyBtns = document.querySelectorAll('.button');
 
-//* 8. CREO UNA FUNCION "IMPRIMIR CARRITO" PARA UTILIZAR EN LA SIGUIENTE FUNCION COMO EVENTO DE CLICK "AGREGAR PRODUCTO AL CARRITO":
 
 //* 8. CREO UNA FUNCION PARA ELIMINAR UN PRODUCTO DEL CARRITO:
 
@@ -78,7 +82,9 @@ const deleteProductFromCart = () => {
 };
 
 
-// 8.1 SELECCIONO EL CONTENEDOR DEL CARRITO Y LO ASIGNO COMO VALOR A LA VARIABLE CARTCONTAINER: 
+//* 9. CREO UNA FUNCION "IMPRIMIR CARRITO" PARA UTILIZAR EN LA SIGUIENTE FUNCION COMO EVENTO DE CLICK "AGREGAR PRODUCTO AL CARRITO":
+
+// 9.1 SELECCIONO EL CONTENEDOR DEL CARRITO Y LO ASIGNO COMO VALOR A LA VARIABLE CARTCONTAINER: 
 const cartContainer = document.querySelector('.cart-container');
 
 const printCart = () => {
@@ -92,7 +98,7 @@ const printCart = () => {
         cartView.className = "card";
         // B.3 LE ASIGNO EL HTML DE CADA PRODUCTO DEL CARRITO:
         cartView.innerHTML = `
-            <img src=${product.img} class="card-img-top" alt="...">
+            <img src=${product.img} class="card-img-top rounded mx-auto d-block" alt="...">
             <div class="card-body">
                 <h5 class="card-title">${product.name}</h5>
                 <p class="card-text">${product.price} ARS</p>
@@ -104,10 +110,10 @@ const printCart = () => {
         // B.5 EJECUTO LA FUNCION DE ELIMINAR PRODUCTO DEL CARRITO:
         deleteProductFromCart();
     });
-}
+};
 
 
-//* 8.1 CREO UNA FUNCION "AGREGAR PRODUCTO AL CARRITO" PARA UTILIZAR LUEGO COMO EVENTO DE CLICK AL BOTON:
+//* 10 CREO UNA FUNCION "AGREGAR PRODUCTO AL CARRITO" PARA UTILIZAR LUEGO COMO EVENTO DE CLICK AL BOTON:
 
 const addProductToCart = (e) => {
     // A. ACCEDO AL ATRIBUTO "DATA-ID" DEL BOTON QUE SE HA CLICKEADO Y LO GUARDO EN UNA VARIABLE:
@@ -118,20 +124,45 @@ const addProductToCart = (e) => {
     cart.push(product);
     // E. IMPRIMIMOS EL CARRITO EN LA PANTALLA:
     printCart();
-    // F. IMPRIMIMOS EL CARRITO EN EL LOCALSTORAGE:
+    // G. IMPRIMIMOS EL CARRITO EN EL LOCALSTORAGE:
     localStorage.setItem('cart', JSON.stringify(cart));
+
+    Toastify({
+        text: "Agregado al carrito",
+        duration: 2000,
+        className: "info",
+        //destination: "https://github.com/apvarun/toastify-js",
+        newWindow: true,
+        close: false,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: false, // Prevents dismissing of toast on hover
+        style: {
+            background: "linear-gradient(to right, #134E5E, #71B280)",
+        },
+        onClick: function(){} // Callback after click
+    }).showToast();
+    
 };
 
-//* 8.2 HABIENDO CREADO EL ARRAY DE BOTONES Y LA FUNCION DE AGREGAR PRODUCTOS AL CARRITO, AHORA RECORRO EL ARRAY DE PRODUCTOS CON UN .FOREACH Y LE AGREGO UN .ADDEVENTLISTENER() A CADA UNO DE LOS BOTONES, DE ESA MANERA LO PODRA ESCUCHAR CUANDO SE CLICKEE Y EJECUTARA LA FUNCION YA DECLARADA:
+
+//* 10.1 HABIENDO CREADO EL ARRAY DE BOTONES Y LA FUNCION DE AGREGAR PRODUCTOS AL CARRITO, AHORA RECORRO EL ARRAY DE PRODUCTOS CON UN .FOREACH Y LE AGREGO UN .ADDEVENTLISTENER() A CADA UNO DE LOS BOTONES, DE ESA MANERA LO PODRA ESCUCHAR CUANDO SE CLICKEE Y EJECUTARA LA FUNCION YA DECLARADA:
 
 buyBtns.forEach((buyButton) => {
     buyButton.addEventListener('click', addProductToCart);
 });
 
 
-//* 9. VERIFICO SI EL LOCALSTORAGE TIENE ALGO Y SI ES ASI, LO CARGO EN EL ARRAY DE PRODUCTOS DEL CARRITO:
+//* 5. VERIFICO SI EL LOCALSTORAGE TIENE ALGO Y SI ES ASI, LO CARGO EN EL ARRAY DE PRODUCTOS DEL CARRITO:
 
 if (localStorage.getItem('cart')) {
     cart = JSON.parse(localStorage.getItem('cart'));
     printCart();
 };
+
+
+
+
+
+
+
