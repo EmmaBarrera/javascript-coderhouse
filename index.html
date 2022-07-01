@@ -5,8 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda Vulkan</title>
-    <!-- BOOTSTRAP LINK -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!-- TOASTIFY LINK -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <!-- CSS -->
@@ -15,68 +13,43 @@
 <body>
 
 <header>
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Tienda Vulkan</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled">Disabled</a>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
+    <!-- NAV -->
+    <nav class="nav">
+        <div class="nav__brand">
+            <a class="nav__a" href="index.html">
+                <img class="nav__img" src="assets/images/nanos.png" alt="logo">
+            </a>
         </div>
+        <div class="nav__items">
+            <ul class="nav__ul">
+                <li class="nav__li"><a class="nav__a" href="#">Inicio</a></li>
+                <li class="nav__li"><a class="nav__a" href="#">Productos</a></li>
+                <li class="nav__li"><a class="nav__a" href="#">Contacto</a></li>
+                <li class="nav__li"><a class="nav__a" href="#">Login</a></li>
+            </ul>
+        </div>
+        <button class="nav__btn">Mi Carrito<svg class="nav__svg" xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" viewBox="0 0 16 16"><path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg></button>
     </nav>
+    <!-- CART -->
+    <section class="cart">
+        <!-- PRODUCTOS DEL CARRITO INYECTADOS DESDE JS -->
+    </section>
 </header>
+
 
 <main>
     <!-- SHOP TITLE -->
-    <div class="container-fluid text-center hero">
-        <h1 class="hero__h1">HARDWARE WALLETS</h1>
+    <div class="title__container">
+        <h1 class="title__h1">HARDWARE WALLETS</h1>
     </div>
     
     <!-- PRODUCTS -->
-    <div class="container-fluid text-center ">
-        <!-- CARD GROUP -->
-        <div class="card-group text-center">
-            <!-- Code from JS here -->
-        </div>
-    </div>
-
-    <!-- CART -->
-    <div class="container-fluid">
-        <h2 class="cart__h2 text-center">Carrito</h2>
-        <div class="cart-container card-group">
-            <!-- Code from JS here -->
-        </div>
-    </div>
+    <section class="products">
+        <!-- CARD GROUPS INYECTADAS DESDE JS -->
+    </section>
 </main>
     <!-- Toastify Script -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <!-- JavaScript Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <!-- JS -->
     <script src="scripts/main.js"></script>
 </body>

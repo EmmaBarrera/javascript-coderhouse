@@ -1,0 +1,73 @@
+//////////////////////////////////////////////////////////////////////////////////////////
+//! RESPONSIVE DESIGN
+//? Breakpoints de resolución
+//* Basicos:
+// Mobile: de 0px a 480px
+// Tablet: de 481px a 960px
+// Ordenador: de 960px a 1328px (si es mas grande, bloquear en 1328px máx).
+
+//* Completos:
+// Mobile pequeño: de 0px a 320px/360px
+// Mobile mediano: de 320px a 480px
+// Tablet: de 480px a 960px
+// Ordenador pequeño (notebook): de 960px a 1024px
+// Ordenador mediano (monitor): de 1024px a 1328px
+
+//? Breakpoint de dispositivo
+//* Orientaciones:
+// Normal
+// Landscape
+
+//* Modo:
+// Claro
+// Oscuro
+///////////////////////////////////////////////////////////////////////////////////////////
+
+//! MEDIA QUERIES 
+
+@mixin mobile(){
+    @media screen and (max-width: 480px) {
+        @content;
+    }
+}
+
+@mixin tablet(){
+    @media screen and (min-width: 481px) and (max-width: 960px)  {
+        @content;
+    }
+}
+
+@mixin desktop(){
+    @media screen and (min-width: 961px) and (max-width: 1328px)  {
+        @content;
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+/* Mixin flexbox */
+@mixin flex($display, $direction, $corte, $justify, $align){
+    display: $display;
+    flex-flow: $direction $corte;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+/* Mixins grid */
+@mixin grid($columnas, $espacio){
+    display: grid;
+    grid-template-columns: repeat($columnas, 1fr);
+    gap: $espacio;
+}
+
+/*------------------------------------------------------------------------------------*/
+
+/* Variables */
+
+$tipo-principal: 'Inter', sans-serif;
+$tipo-secundaria: 'Prata', serif;
+
+$color-1: #0A0D40;
+$color-2: #070826;
+$color-3: #2669BF;
+$color-4: #088C74;
+$color-5: #D97823;

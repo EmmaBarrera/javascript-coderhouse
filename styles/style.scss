@@ -1,0 +1,135 @@
+@import '_reset';
+@import '_variables';
+
+.nav{
+    background-color: black;
+    padding: 0 3em;
+    @include flex(flex, row, nowrap, space-between, center);
+    
+    &__brand{
+
+    }
+
+    &__img{
+        max-width: 5em;
+    }
+    
+    &__items{
+
+    }
+
+    &__ul{
+        @include flex(flex, row, nowrap, space-between, center);
+    }
+
+    &__li{
+
+        padding: 0 0 0 2em;
+    }
+
+    &__a{
+        
+    }
+};
+
+.title__container{
+    background-color: blueviolet;
+    padding: 1em;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    color: black;
+
+    &__h1{
+        color: black;
+    }
+}
+
+.products{
+    //background-color: greenyellow;
+    @include flex(flex, row, nowrap, center, center);
+    
+    
+}
+
+.card{
+    //background-color: salmon;
+    @include flex(flex, column, nowrap,space-around, center);
+    padding: 2em;
+    max-width: 30em;
+    color: black;
+    border: solid 1px black;
+    border-radius: 0.5em;
+    margin: 2em;
+
+    &__img{
+        max-width: 12em;
+    }
+
+    &__body{
+        @include flex(flex, column, nowrap, flex-start, flex-start);
+        background-color: slategray;
+        padding: 1em;
+        min-height: 13em;
+        max-width: 30em;
+    }
+    &__title{
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+    &__text{
+        padding: .5em 0;
+        min-height: 9em;
+        //background-color: orangered;
+    }
+    &__price{
+        font-weight: bold;
+        margin-top: 1em;
+        color: rgb(22, 23, 77);
+    }
+    &__button{
+        padding: .5em 1em;
+        margin-top: 1em;
+        border: solid 1px black;
+        color: white;
+        background-color: rgb(3, 65, 3)
+    }
+};
+
+.cart{
+    display: none;
+    background-color: black;
+    
+    &.active{
+        //@include flex(flex, column, nowrap, center, flex-end);
+        display: block;
+        
+    }
+    &__container{
+        //background-color: blue;
+        @include flex(flex, column, nowrap, center, flex-end);
+        padding: 0 1em;
+        margin: 1em;
+        position: relative;
+    }
+    &__img{
+        max-width: 5em;
+    }
+    &__body{
+        background-color: black;
+        min-height: 6em;
+    }
+    &__title{
+        //background-color: brown;
+    }
+    &__text{
+        padding: 1em 0;
+
+    }
+    &__delbtn{
+        background-color: grey;
+        padding: .5em;
+        background-color: red;
+    }
+
+}
